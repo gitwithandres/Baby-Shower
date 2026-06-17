@@ -55,7 +55,16 @@ ALTER TABLE complementary_selections ENABLE ROW LEVEL SECURITY;
 ALTER TABLE attendance_confirmations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE guest_messages ENABLE ROW LEVEL SECURITY;
 
--- Public policies (anon key)
+-- Public policies (anon key) - drop first to allow re-runs
+DROP POLICY IF EXISTS "Anyone can read premium_gifts" ON premium_gifts;
+DROP POLICY IF EXISTS "Anyone can read complementary_selections" ON complementary_selections;
+DROP POLICY IF EXISTS "Anyone can read attendance_confirmations" ON attendance_confirmations;
+DROP POLICY IF EXISTS "Anyone can read guest_messages" ON guest_messages;
+DROP POLICY IF EXISTS "Anyone can insert complementary_selections" ON complementary_selections;
+DROP POLICY IF EXISTS "Anyone can insert attendance_confirmations" ON attendance_confirmations;
+DROP POLICY IF EXISTS "Anyone can insert guest_messages" ON guest_messages;
+DROP POLICY IF EXISTS "Anyone can update premium_gifts to reserve" ON premium_gifts;
+
 CREATE POLICY "Anyone can read premium_gifts"
   ON premium_gifts FOR SELECT
   USING (true);
