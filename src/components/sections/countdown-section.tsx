@@ -6,11 +6,11 @@ import { EVENT } from '@/lib/constants';
 
 function CountdownItem({ value, label }: { value: number; label: string }) {
   return (
-    <div className="flex flex-col items-center">
-      <span className="font-serif text-4xl md:text-5xl text-beige-500 tabular-nums">
+    <div className="flex flex-col items-center min-w-0 flex-1">
+      <span className="font-serif text-2xl sm:text-3xl md:text-5xl text-beige-500 tabular-nums leading-none">
         {value.toString().padStart(2, '0')}
       </span>
-      <span className="text-xs md:text-sm text-beige-300 uppercase tracking-[0.15em] mt-1">
+      <span className="text-[10px] sm:text-xs md:text-sm text-beige-300 uppercase tracking-[0.1em] sm:tracking-[0.15em] mt-1 sm:mt-1.5 whitespace-nowrap">
         {label}
       </span>
     </div>
@@ -32,13 +32,13 @@ export function CountdownSection() {
           <div className="w-8 h-0.5 bg-gold-300 mx-auto" />
         </div>
 
-        <div className="flex justify-center gap-8 md:gap-12">
+        <div className="flex justify-center items-center gap-2 sm:gap-4 md:gap-8 lg:gap-12">
           <CountdownItem value={countdown.days} label="Días" />
-          <div className="w-px bg-beige-200 self-stretch" />
+          <div className="w-px h-8 sm:h-10 md:h-12 bg-beige-200 flex-shrink-0" />
           <CountdownItem value={countdown.hours} label="Horas" />
-          <div className="w-px bg-beige-200 self-stretch" />
+          <div className="w-px h-8 sm:h-10 md:h-12 bg-beige-200 flex-shrink-0" />
           <CountdownItem value={countdown.minutes} label="Minutos" />
-          <div className="w-px bg-beige-200 self-stretch" />
+          <div className="w-px h-8 sm:h-10 md:h-12 bg-beige-200 flex-shrink-0" />
           <CountdownItem value={countdown.seconds} label="Segundos" />
         </div>
       </ScrollAnimation>
