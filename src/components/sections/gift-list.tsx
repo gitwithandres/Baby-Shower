@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ScrollAnimation } from '@/components/effects/scroll-animation';
 import { GiftModal } from './gift-modal';
@@ -152,11 +153,22 @@ export function GiftListSection() {
                   className="bg-white/60 backdrop-blur-sm rounded-2xl overflow-hidden border border-beige-100 group"
                 >
                   <div className="relative h-40 bg-beige-100 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <svg className="w-12 h-12 text-beige-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
-                      </svg>
-                    </div>
+                    {gift.imagen ? (
+                      <Image
+                        src={gift.imagen}
+                        alt={gift.nombre}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <svg className="w-12 h-12 text-beige-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
                   <div className="p-4">
                     <h4 className="font-serif text-lg text-beige-500 mb-1">
@@ -192,9 +204,22 @@ export function GiftListSection() {
                   className="bg-beige-50 rounded-2xl overflow-hidden border border-beige-100 opacity-75"
                 >
                   <div className="relative h-40 bg-beige-100 overflow-hidden">
-                    <div className="absolute inset-0 bg-black/10 flex items-center justify-center">
-                      <svg className="w-12 h-12 text-beige-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    {gift.imagen ? (
+                      <>
+                        <Image
+                          src={gift.imagen}
+                          alt={gift.nombre}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black/10" />
+                      </>
+                    ) : null}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <svg className="w-12 h-12 text-white/60 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
                   </div>
