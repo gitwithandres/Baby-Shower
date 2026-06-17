@@ -24,7 +24,8 @@ export default function AdminAttendancePage() {
   async function deleteEntry(id: string) {
     if (!confirm('¿Eliminar esta confirmación?')) return;
     const supabase = getSupabaseClient();
-    await supabase.from('attendance_confirmations').delete().eq('id', id);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase.from('attendance_confirmations') as any).delete().eq('id', id);
     fetchAttendance();
   }
 
@@ -36,10 +37,11 @@ export default function AdminAttendancePage() {
       .order('created_at', { ascending: false });
 
     if (!data) return;
+    const rows = data as unknown as AttendanceConfirmation[];
 
     const csv = [
       'Nombre,Teléfono,Confirmado,Fecha',
-      ...data.map((a) =>
+      ...rows.map((a) =>
         `"${a.nombre}","${a.telefono ?? ''}",${a.confirmado ? 'Sí' : 'No'},"${a.created_at}"`
       ),
     ].join('\n');

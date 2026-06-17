@@ -20,7 +20,8 @@ export function RsvpSection() {
 
     try {
       const supabase = getSupabaseClient();
-      await supabase.from('attendance_confirmations').insert({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await (supabase.from('attendance_confirmations') as any).insert({
         nombre: nombre.trim(),
       });
     } catch {

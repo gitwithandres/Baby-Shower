@@ -40,13 +40,13 @@ export function GiftListSection() {
 
   async function fetchPremiumGifts() {
     const supabase = getSupabaseClient();
-    const { data } = await supabase
-      .from('premium_gifts')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data } = await (supabase.from('premium_gifts') as any)
       .select('*')
       .order('created_at', { ascending: true });
 
     if (data) {
-      setPremiumGifts(data);
+      setPremiumGifts(data as PremiumGift[]);
     }
     setIsLoading(false);
   }
@@ -55,8 +55,8 @@ export function GiftListSection() {
     if (!selectedGift) return;
 
     const supabase = getSupabaseClient();
-    const { error } = await supabase
-      .from('premium_gifts')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await (supabase.from('premium_gifts') as any)
       .update({
         reservado: true,
         reservado_por: nombre,
@@ -100,9 +100,8 @@ export function GiftListSection() {
     }));
 
     const supabase = getSupabaseClient();
-    const { error } = await supabase
-      .from('complementary_selections')
-      .insert(selections);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await (supabase.from('complementary_selections') as any).insert(selections);
 
     if (error) {
       alert('Error al guardar las selecciones.');

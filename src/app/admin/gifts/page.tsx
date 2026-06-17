@@ -49,17 +49,12 @@ export default function AdminGiftsPage() {
     if (!nombre.trim()) return;
 
     const supabase = getSupabaseClient();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const db = supabase.from('premium_gifts') as any;
     if (editingGift) {
-      await supabase
-        .from('premium_gifts')
-        .update({ nombre: nombre.trim(), descripcion: descripcion.trim(), imagen: imagen.trim() })
-        .eq('id', editingGift.id);
+      await db.update({ nombre: nombre.trim(), descripcion: descripcion.trim(), imagen: imagen.trim() }).eq('id', editingGift.id);
     } else {
-      await supabase.from('premium_gifts').insert({
-        nombre: nombre.trim(),
-        descripcion: descripcion.trim(),
-        imagen: imagen.trim(),
-      });
+      await db.insert({ nombre: nombre.trim(), descripcion: descripcion.trim(), imagen: imagen.trim() });
     }
 
     resetForm();
@@ -69,7 +64,8 @@ export default function AdminGiftsPage() {
   async function deleteGift(id: string) {
     if (!confirm('¿Eliminar este regalo premium?')) return;
     const supabase = getSupabaseClient();
-    await supabase.from('premium_gifts').delete().eq('id', id);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase.from('premium_gifts') as any).delete().eq('id', id);
     fetchGifts();
   }
 

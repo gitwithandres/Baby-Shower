@@ -22,15 +22,15 @@ export function MessagesSection() {
 
   async function fetchMessages() {
     const supabase = getSupabaseClient();
-    const { data } = await supabase
-      .from('guest_messages')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data } = await (supabase.from('guest_messages') as any)
       .select('*')
       .eq('aprobado', true)
       .order('created_at', { ascending: false })
       .limit(20);
 
     if (data) {
-      setMessages(data);
+      setMessages(data as GuestMessage[]);
     }
   }
 
@@ -41,7 +41,8 @@ export function MessagesSection() {
     setIsSubmitting(true);
 
     const supabase = getSupabaseClient();
-    const { error } = await supabase.from('guest_messages').insert({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await (supabase.from('guest_messages') as any).insert({
       nombre: nombre.trim(),
       mensaje: mensaje.trim(),
     });

@@ -15,41 +15,36 @@ export default function AdminMessagesPage() {
 
   async function fetchMessages() {
     const supabase = getSupabaseClient();
-    const { data } = await supabase
-      .from('guest_messages')
-      .select('*')
-      .order('created_at', { ascending: false });
-    if (data) setMessages(data);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data } = await (supabase.from('guest_messages') as any).select('*').order('created_at', { ascending: false });
+    if (data) setMessages(data as GuestMessage[]);
   }
 
   async function toggleApproval(id: string, current: boolean) {
     const supabase = getSupabaseClient();
-    await supabase
-      .from('guest_messages')
-      .update({ aprobado: !current })
-      .eq('id', id);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase.from('guest_messages') as any).update({ aprobado: !current }).eq('id', id);
     fetchMessages();
   }
 
   async function deleteMessage(id: string) {
     if (!confirm('¿Eliminar este mensaje?')) return;
     const supabase = getSupabaseClient();
-    await supabase.from('guest_messages').delete().eq('id', id);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase.from('guest_messages') as any).delete().eq('id', id);
     fetchMessages();
   }
 
   async function exportMessages() {
     const supabase = getSupabaseClient();
-    const { data } = await supabase
-      .from('guest_messages')
-      .select('*')
-      .order('created_at', { ascending: false });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data } = await (supabase.from('guest_messages') as any).select('*').order('created_at', { ascending: false });
 
     if (!data) return;
 
     const csv = [
       'Nombre,Mensaje,Aprobado,Fecha',
-      ...data.map((m) =>
+      ...data.map((m: { nombre: string; mensaje: string; aprobado: boolean; created_at: string }) =>
         `"${m.nombre}","${m.mensaje.replace(/"/g, '""')}",${m.aprobado ? 'Sí' : 'No'},"${m.created_at}"`
       ),
     ].join('\n');
