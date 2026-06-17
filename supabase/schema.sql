@@ -146,11 +146,15 @@ CREATE POLICY "Anyone can delete attendance_confirmations"
   ON attendance_confirmations FOR DELETE
   USING (true);
 
+-- Fix existing records with wrong image paths
+UPDATE premium_gifts SET imagen = '/images/corralpiso.jpg' WHERE nombre = 'Corral' AND imagen = '/images/corral.jpg';
+UPDATE premium_gifts SET imagen = '/images/bañera.jpg' WHERE nombre = 'Bañera' AND imagen = '/images/banera.jpg';
+
 -- Seed sample premium gifts
 INSERT INTO premium_gifts (nombre, descripcion, imagen) VALUES
   ('Cuna', 'Cuna de madera maciza con colchón ortopédico', '/images/cuna.jpg'),
   ('Coche', 'Carrito de paseo todo terreno reclinable', '/images/coche.jpg'),
-  ('Corral', 'Corral plegable con colchoneta acolchada', '/images/corral.jpg'),
+  ('Corral', 'Corral plegable con colchoneta acolchada', '/images/corralpiso.jpg'),
   ('Silla para automóvil', 'Silla de seguridad grupo 0+ con base isofix', '/images/silla.jpg'),
-  ('Bañera', 'Bañera ergonómica con soporte antideslizante', '/images/banera.jpg')
+  ('Bañera', 'Bañera ergonómica con soporte antideslizante', '/images/bañera.jpg')
 ON CONFLICT DO NOTHING;

@@ -93,7 +93,7 @@ export const SAMPLE_PREMIUM_GIFTS = [
   {
     nombre: 'Corral',
     descripcion: 'Corral plegable con colchoneta acolchada',
-    imagen: '/images/corral.jpg',
+    imagen: '/images/corralpiso.jpg',
   },
   {
     nombre: 'Silla para automóvil',
@@ -103,6 +103,6 @@ export const SAMPLE_PREMIUM_GIFTS = [
   {
     nombre: 'Bañera',
     descripcion: 'Bañera ergonómica con soporte antideslizante',
-    imagen: '/images/banera.jpg',
+    imagen: '/images/bañera.jpg',
   },
 ] as const;
