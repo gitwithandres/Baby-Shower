@@ -41,15 +41,15 @@ CREATE TABLE IF NOT EXISTS guest_messages (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Unique constraint to prevent duplicate gift names
-ALTER TABLE premium_gifts DROP CONSTRAINT IF EXISTS premium_gifts_nombre_unique;
-ALTER TABLE premium_gifts ADD CONSTRAINT premium_gifts_nombre_unique UNIQUE (nombre);
-
 -- Remove duplicate premium gifts (keep the first one)
 DELETE FROM premium_gifts
 WHERE id NOT IN (
-  SELECT MIN(id) FROM premium_gifts GROUP BY nombre
+  SELECT DISTINCT ON (nombre) id FROM premium_gifts ORDER BY nombre, created_at ASC
 );
+
+-- Unique constraint to prevent future duplicates
+ALTER TABLE premium_gifts DROP CONSTRAINT IF EXISTS premium_gifts_nombre_unique;
+ALTER TABLE premium_gifts ADD CONSTRAINT premium_gifts_nombre_unique UNIQUE (nombre);
 
 -- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_premium_gifts_reservado ON premium_gifts(reservado);
