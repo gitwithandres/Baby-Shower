@@ -41,6 +41,16 @@ CREATE TABLE IF NOT EXISTS guest_messages (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Unique constraint to prevent duplicate gift names
+ALTER TABLE premium_gifts DROP CONSTRAINT IF EXISTS premium_gifts_nombre_unique;
+ALTER TABLE premium_gifts ADD CONSTRAINT premium_gifts_nombre_unique UNIQUE (nombre);
+
+-- Remove duplicate premium gifts (keep the first one)
+DELETE FROM premium_gifts
+WHERE id NOT IN (
+  SELECT MIN(id) FROM premium_gifts GROUP BY nombre
+);
+
 -- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_premium_gifts_reservado ON premium_gifts(reservado);
 CREATE INDEX IF NOT EXISTS idx_guest_messages_aprobado ON guest_messages(aprobado);
@@ -64,6 +74,11 @@ DROP POLICY IF EXISTS "Anyone can insert complementary_selections" ON complement
 DROP POLICY IF EXISTS "Anyone can insert attendance_confirmations" ON attendance_confirmations;
 DROP POLICY IF EXISTS "Anyone can insert guest_messages" ON guest_messages;
 DROP POLICY IF EXISTS "Anyone can update premium_gifts to reserve" ON premium_gifts;
+DROP POLICY IF EXISTS "Admin can update premium_gifts" ON premium_gifts;
+DROP POLICY IF EXISTS "Anyone can delete premium_gifts" ON premium_gifts;
+DROP POLICY IF EXISTS "Admin can update guest_messages" ON guest_messages;
+DROP POLICY IF EXISTS "Anyone can delete guest_messages" ON guest_messages;
+DROP POLICY IF EXISTS "Anyone can delete attendance_confirmations" ON attendance_confirmations;
 
 CREATE POLICY "Anyone can read premium_gifts"
   ON premium_gifts FOR SELECT
@@ -93,11 +108,43 @@ CREATE POLICY "Anyone can insert guest_messages"
   ON guest_messages FOR INSERT
   WITH CHECK (true);
 
--- Update policy for reserving gifts
+-- Update policy for reserving gifts (guests can only reserve non-reserved)
 CREATE POLICY "Anyone can update premium_gifts to reserve"
   ON premium_gifts FOR UPDATE
   USING (reservado = false)
   WITH CHECK (true);
+
+-- Admin: update any premium gift (for admin panel)
+DROP POLICY IF EXISTS "Admin can update premium_gifts" ON premium_gifts;
+CREATE POLICY "Admin can update premium_gifts"
+  ON premium_gifts FOR UPDATE
+  USING (true)
+  WITH CHECK (true);
+
+-- Admin: delete premium gifts
+DROP POLICY IF EXISTS "Anyone can delete premium_gifts" ON premium_gifts;
+CREATE POLICY "Anyone can delete premium_gifts"
+  ON premium_gifts FOR DELETE
+  USING (true);
+
+-- Admin: update guest messages (approve/reject)
+DROP POLICY IF EXISTS "Admin can update guest_messages" ON guest_messages;
+CREATE POLICY "Admin can update guest_messages"
+  ON guest_messages FOR UPDATE
+  USING (true)
+  WITH CHECK (true);
+
+-- Admin: delete guest messages
+DROP POLICY IF EXISTS "Anyone can delete guest_messages" ON guest_messages;
+CREATE POLICY "Anyone can delete guest_messages"
+  ON guest_messages FOR DELETE
+  USING (true);
+
+-- Admin: delete attendance confirmations
+DROP POLICY IF EXISTS "Anyone can delete attendance_confirmations" ON attendance_confirmations;
+CREATE POLICY "Anyone can delete attendance_confirmations"
+  ON attendance_confirmations FOR DELETE
+  USING (true);
 
 -- Seed sample premium gifts
 INSERT INTO premium_gifts (nombre, descripcion, imagen) VALUES
