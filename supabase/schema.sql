@@ -60,6 +60,18 @@ CREATE POLICY "Anyone can read premium_gifts"
   ON premium_gifts FOR SELECT
   USING (true);
 
+CREATE POLICY "Anyone can read complementary_selections"
+  ON complementary_selections FOR SELECT
+  USING (true);
+
+CREATE POLICY "Anyone can read attendance_confirmations"
+  ON attendance_confirmations FOR SELECT
+  USING (true);
+
+CREATE POLICY "Anyone can read guest_messages"
+  ON guest_messages FOR SELECT
+  USING (true);
+
 CREATE POLICY "Anyone can insert complementary_selections"
   ON complementary_selections FOR INSERT
   WITH CHECK (true);
@@ -71,10 +83,6 @@ CREATE POLICY "Anyone can insert attendance_confirmations"
 CREATE POLICY "Anyone can insert guest_messages"
   ON guest_messages FOR INSERT
   WITH CHECK (true);
-
-CREATE POLICY "Anyone can read approved guest_messages"
-  ON guest_messages FOR SELECT
-  USING (aprobado = true);
 
 -- Update policy for reserving gifts
 CREATE POLICY "Anyone can update premium_gifts to reserve"

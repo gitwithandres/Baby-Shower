@@ -5,16 +5,31 @@ import { motion } from 'framer-motion';
 import { ScrollAnimation } from '@/components/effects/scroll-animation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { getSupabaseClient } from '@/lib/supabase/client';
 import { EVENT } from '@/lib/constants';
 import { getWhatsAppUrl, generateWhatsAppMessage } from '@/lib/utils';
 
 export function RsvpSection() {
   const [nombre, setNombre] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
 
-  function handleConfirm() {
-    const message = nombre
-      ? `Hola Andrea, soy ${nombre} y confirmo mi asistencia al Baby Shower de ${EVENT.babyName}.`
-      : generateWhatsAppMessage('');
+  async function handleConfirm() {
+    if (!nombre.trim()) return;
+
+    setIsSaving(true);
+
+    try {
+      const supabase = getSupabaseClient();
+      await supabase.from('attendance_confirmations').insert({
+        nombre: nombre.trim(),
+      });
+    } catch {
+      // continue to WhatsApp even if save fails
+    }
+
+    setIsSaving(false);
+
+    const message = `Hola Andrea, soy ${nombre} y confirmo mi asistencia al Baby Shower de ${EVENT.babyName}.`;
     const url = getWhatsAppUrl(EVENT.whatsappNumber, message);
     window.open(url, '_blank');
   }
@@ -54,6 +69,8 @@ export function RsvpSection() {
               variant="gold"
               size="lg"
               onClick={handleConfirm}
+              isLoading={isSaving}
+              disabled={!nombre.trim()}
               className="w-full md:w-auto"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
