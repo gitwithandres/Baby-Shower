@@ -11,6 +11,7 @@ import { getWhatsAppUrl, generateWhatsAppMessage } from '@/lib/utils';
 
 export function RsvpSection() {
   const [nombre, setNombre] = useState('');
+  const [telefono, setTelefono] = useState('');
   const [isSaving, setIsSaving] = useState(false);
 
   async function handleConfirm() {
@@ -23,6 +24,7 @@ export function RsvpSection() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await (supabase.from('attendance_confirmations') as any).insert({
         nombre: nombre.trim(),
+        telefono: telefono.trim() || null,
       });
     } catch {
       // continue to WhatsApp even if save fails
@@ -63,6 +65,14 @@ export function RsvpSection() {
             placeholder="Tu nombre"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
+          />
+
+          <Input
+            id="rsvp-phone"
+            type="tel"
+            placeholder="Tu teléfono (opcional)"
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
           />
 
           <div className="flex justify-center">
