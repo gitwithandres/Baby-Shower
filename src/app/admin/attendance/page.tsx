@@ -70,38 +70,40 @@ export default function AdminAttendancePage() {
       </div>
 
       <div className="bg-white rounded-2xl border border-beige-100 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-beige-100">
-                <th className="text-left px-4 py-3 text-beige-400 font-medium">Nombre</th>
-                <th className="text-left px-4 py-3 text-beige-400 font-medium">Teléfono</th>
-                <th className="text-left px-4 py-3 text-beige-400 font-medium">Fecha</th>
-                <th className="text-right px-4 py-3 text-beige-400 font-medium">Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              {attendees.map((a) => (
-                <tr key={a.id} className="border-b border-beige-50 hover:bg-beige-50/50">
-                  <td className="px-4 py-3 text-beige-500">{a.nombre}</td>
-                  <td className="px-4 py-3 text-beige-400">{a.telefono ?? '—'}</td>
-                  <td className="px-4 py-3 text-beige-400">
-                    {new Date(a.created_at).toLocaleDateString('es-CO')}
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => deleteEntry(a.id)}
-                      className="text-red-400 hover:text-red-500"
-                    >
-                      Eliminar
-                    </Button>
-                  </td>
+        <div className="overflow-x-auto -mx-4 sm:mx-0">
+          <div className="min-w-[500px] sm:min-w-0 px-4 sm:px-0">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-beige-100">
+                  <th className="text-left px-4 py-3 text-beige-400 font-medium">Nombre</th>
+                  <th className="text-left px-4 py-3 text-beige-400 font-medium">Teléfono</th>
+                  <th className="text-left px-4 py-3 text-beige-400 font-medium">Fecha</th>
+                  <th className="text-right px-4 py-3 text-beige-400 font-medium">Acción</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {attendees.map((a) => (
+                  <tr key={a.id} className="border-b border-beige-50 hover:bg-beige-50/50">
+                    <td className="px-4 py-3 text-beige-500">{a.nombre}</td>
+                    <td className="px-4 py-3 text-beige-400">{a.telefono ?? '—'}</td>
+                    <td className="px-4 py-3 text-beige-400">
+                      {new Date(a.created_at).toLocaleDateString('es-CO')}
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => deleteEntry(a.id)}
+                        className="text-red-400 hover:text-red-500"
+                      >
+                        Eliminar
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {attendees.length === 0 && (

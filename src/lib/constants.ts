@@ -10,7 +10,7 @@ export const EVENT = {
   city: 'Bucaramanga, Colombia',
   welcomeMessage:
     'Con inmensa alegría esperamos la llegada de nuestro amado Juan José. Queremos compartir contigo este momento tan especial y celebrar juntos el comienzo de esta hermosa aventura.',
-  whatsappNumber: '573002768270',
+  whatsappNumber: '573167740131',
 } as const;
 
 export const COMPLEMENTARY_GIFTS = [

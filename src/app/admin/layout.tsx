@@ -46,6 +46,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 function AdminNav() {
   const router = useRouter();
   const pathname = usePathname();
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   function handleLogout() {
     sessionStorage.removeItem('admin_auth');
@@ -59,10 +60,15 @@ function AdminNav() {
     { href: '/admin/attendance', label: 'Asistencia' },
   ];
 
+  function navigate(href: string) {
+    setShowMobileMenu(false);
+    router.push(href);
+  }
+
   return (
     <nav className="bg-white border-b border-beige-100 px-4 py-3">
       <div className="max-w-6xl mx-auto flex items-center justify-between">
-        <div className="flex items-center gap-1">
+        <div className="hidden sm:flex items-center gap-1">
           {links.map((link) => (
             <button
               key={link.href}
@@ -78,12 +84,38 @@ function AdminNav() {
           ))}
         </div>
         <button
+          onClick={() => setShowMobileMenu(!showMobileMenu)}
+          className="sm:hidden p-2 cursor-pointer"
+          aria-label="Menú"
+        >
+          <div className="w-5 h-0.5 bg-beige-400 mb-1 transition-all" />
+          <div className="w-5 h-0.5 bg-beige-400 mb-1 transition-all" />
+          <div className="w-5 h-0.5 bg-beige-400 transition-all" />
+        </button>
+        <button
           onClick={handleLogout}
           className="text-sm text-beige-400 hover:text-beige-500 cursor-pointer"
         >
           Cerrar sesión
         </button>
       </div>
+      {showMobileMenu && (
+        <div className="sm:hidden flex flex-col gap-1 mt-3 pb-2 border-t border-beige-100 pt-2">
+          {links.map((link) => (
+            <button
+              key={link.href}
+              onClick={() => navigate(link.href)}
+              className={`px-3 py-2 rounded-lg text-sm transition-colors cursor-pointer text-left ${
+                pathname === link.href
+                  ? 'bg-beige-100 text-beige-500 font-medium'
+                  : 'text-beige-400 hover:text-beige-500'
+              }`}
+            >
+              {link.label}
+            </button>
+          ))}
+        </div>
+      )}
     </nav>
   );
 }

@@ -96,11 +96,12 @@ export default function AdminDashboardPage() {
             Acciones rápidas
           </h2>
         </div>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
           <Button
             variant="gold"
             size="sm"
             onClick={() => router.push('/admin/gifts')}
+            className="w-full sm:w-auto"
           >
             Gestionar regalos
           </Button>
@@ -108,6 +109,7 @@ export default function AdminDashboardPage() {
             variant="secondary"
             size="sm"
             onClick={() => router.push('/admin/messages')}
+            className="w-full sm:w-auto"
           >
             Revisar mensajes
           </Button>
@@ -115,6 +117,7 @@ export default function AdminDashboardPage() {
             variant="outline"
             size="sm"
             onClick={() => router.push('/admin/attendance')}
+            className="w-full sm:w-auto"
           >
             Ver asistencia
           </Button>

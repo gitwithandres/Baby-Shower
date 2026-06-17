@@ -99,12 +99,12 @@ export default function AdminMessagesPage() {
             key={msg.id}
             className="bg-white rounded-xl p-4 border border-beige-100"
           >
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex-1 min-w-0">
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-3">
+              <div className="flex-1 min-w-0 w-full sm:w-auto">
                 <p className="text-sm text-beige-500/80 leading-relaxed mb-2">
                   &ldquo;{msg.mensaje}&rdquo;
                 </p>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 flex-wrap">
                   <span className="text-xs text-beige-400 font-medium">
                     &mdash; {msg.nombre}
                   </span>
@@ -113,11 +113,12 @@ export default function AdminMessagesPage() {
                   </span>
                 </div>
               </div>
-              <div className="flex gap-2 flex-shrink-0">
+              <div className="flex gap-2 flex-shrink-0 w-full sm:w-auto">
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => toggleApproval(msg.id, msg.aprobado)}
+                  className="flex-1 sm:flex-none"
                 >
                   {msg.aprobado ? 'Ocultar' : 'Aprobar'}
                 </Button>
@@ -125,7 +126,7 @@ export default function AdminMessagesPage() {
                   variant="ghost"
                   size="sm"
                   onClick={() => deleteMessage(msg.id)}
-                  className="text-red-400 hover:text-red-500"
+                  className="text-red-400 hover:text-red-500 flex-1 sm:flex-none"
                 >
                   Eliminar
                 </Button>
