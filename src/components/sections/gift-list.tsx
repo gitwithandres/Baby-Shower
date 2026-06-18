@@ -89,6 +89,11 @@ export function GiftListSection() {
       });
 
       if (!res.ok) throw new Error('Error al reservar');
+
+      const updated = await res.json();
+      setPremiumGifts((prev) =>
+        prev.map((g) => (g.id === updated.id ? updated : g))
+      );
     } catch {
       throw new Error('Error al reservar el regalo');
     }
