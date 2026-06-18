@@ -35,7 +35,7 @@ export function GallerySection() {
                 src={image.src}
                 alt={image.alt}
                 fill
-                className="object-contain transition-transform duration-500 group-hover:scale-105 p-1"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 loading="lazy"
               />
