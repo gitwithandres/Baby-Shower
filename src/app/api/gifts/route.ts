@@ -55,15 +55,23 @@ export async function PUT(request: Request) {
   try {
     const supabase = getSupabaseAdmin();
     const body = await request.json();
-    const { id, nombre, descripcion, imagen } = body;
+    const { id, nombre, descripcion, imagen, reservado, reservado_por, fecha_reserva } = body;
 
     if (!id) {
       return NextResponse.json({ error: 'ID requerido' }, { status: 400 });
     }
 
+    const updateData: Record<string, unknown> = { updated_at: new Date().toISOString() };
+    if (nombre !== undefined) updateData.nombre = nombre;
+    if (descripcion !== undefined) updateData.descripcion = descripcion;
+    if (imagen !== undefined) updateData.imagen = imagen;
+    if (reservado !== undefined) updateData.reservado = reservado;
+    if (reservado_por !== undefined) updateData.reservado_por = reservado_por;
+    if (fecha_reserva !== undefined) updateData.fecha_reserva = fecha_reserva;
+
     const { data, error } = await supabase
       .from('premium_gifts')
-      .update({ nombre, descripcion, imagen, updated_at: new Date().toISOString() })
+      .update(updateData)
       .eq('id', id)
       .select()
       .single();

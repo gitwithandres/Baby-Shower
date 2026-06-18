@@ -10,6 +10,12 @@ import { getSupabaseClient } from '@/lib/supabase/client';
 import { COMPLEMENTARY_GIFTS } from '@/lib/constants';
 import type { PremiumGift } from '@/types';
 
+async function fetchGiftsFromApi(): Promise<PremiumGift[]> {
+  const res = await fetch('/api/gifts');
+  if (!res.ok) throw new Error('Error al cargar regalos');
+  return res.json();
+}
+
 export function GiftListSection() {
   const [premiumGifts, setPremiumGifts] = useState<PremiumGift[]>([]);
   const [selectedGift, setSelectedGift] = useState<PremiumGift | null>(null);
@@ -17,61 +23,76 @@ export function GiftListSection() {
   const [hasReservedPremium, setHasReservedPremium] = useState(false);
   const [guestName, setGuestName] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(false);
   const [compGuestName, setCompGuestName] = useState('');
 
   useEffect(() => {
-    const supabase = getSupabaseClient();
-    fetchPremiumGifts();
+    let cancelled = false;
 
-    const channel = supabase
-      .channel('premium-gifts-changes')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'premium_gifts' },
-        () => {
-          fetchPremiumGifts();
+    async function load() {
+      try {
+        const data = await fetchGiftsFromApi();
+        if (!cancelled) {
+          setPremiumGifts(data);
+          setFetchError(false);
         }
-      )
-      .subscribe();
+      } catch {
+        if (!cancelled) setFetchError(true);
+      }
+      if (!cancelled) setIsLoading(false);
+    }
 
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, []);
+    load();
 
-  async function fetchPremiumGifts() {
+    let channel: ReturnType<ReturnType<typeof getSupabaseClient>['channel']> | null = null;
     try {
       const supabase = getSupabaseClient();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { data, error } = await (supabase.from('premium_gifts') as any)
-        .select('*')
-        .order('created_at', { ascending: true });
-
-      if (error) {
-        console.error('Error fetching premium gifts:', error);
-      } else if (data) {
-        setPremiumGifts(data as PremiumGift[]);
-      }
-    } catch (err) {
-      console.error('Failed to fetch premium gifts:', err);
+      channel = supabase
+        .channel('premium-gifts-changes')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'premium_gifts' },
+          () => {
+            fetchGiftsFromApi().then((data) => {
+              if (!cancelled) setPremiumGifts(data);
+            }).catch(() => {});
+          }
+        )
+        .subscribe();
+    } catch {
+      // realtime no disponible, no crítico
     }
-    setIsLoading(false);
-  }
+
+    return () => {
+      cancelled = true;
+      if (channel) {
+        try {
+          const supabase = getSupabaseClient();
+          supabase.removeChannel(channel);
+        } catch {}
+      }
+    };
+  }, []);
 
   const handleReserve = useCallback(async (nombre: string) => {
     if (!selectedGift) return;
 
-    const supabase = getSupabaseClient();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { error } = await (supabase.from('premium_gifts') as any)
-      .update({
-        reservado: true,
-        reservado_por: nombre,
-        fecha_reserva: new Date().toISOString(),
-      })
-      .eq('id', selectedGift.id);
+    try {
+      const res = await fetch('/api/gifts', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: selectedGift.id,
+          reservado: true,
+          reservado_por: nombre,
+          fecha_reserva: new Date().toISOString(),
+        }),
+      });
 
-    if (error) throw error;
+      if (!res.ok) throw new Error('Error al reservar');
+    } catch {
+      throw new Error('Error al reservar el regalo');
+    }
 
     setHasReservedPremium(true);
     setGuestName(nombre);
@@ -146,7 +167,12 @@ export function GiftListSection() {
           </h3>
 
           {isLoading ? (
-            <div className="text-center text-beige-300">Cargando...</div>
+            <div className="text-center text-beige-300 py-8">Cargando...</div>
+          ) : fetchError ? (
+            <div className="text-center py-8">
+              <p className="text-beige-400 font-serif text-lg">No se pudieron cargar los regalos</p>
+              <p className="text-beige-300 text-sm mt-2">Intenta de nuevo más tarde</p>
+            </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
               {availablePremium.map((gift, index) => (
@@ -245,7 +271,7 @@ export function GiftListSection() {
             </div>
           )}
 
-          {availablePremium.length === 0 && !isLoading && (
+          {!isLoading && !fetchError && availablePremium.length === 0 && (
             <div className="text-center py-12">
               <p className="text-beige-400 font-serif text-xl">
                 Todos los regalos premium han sido reservados
