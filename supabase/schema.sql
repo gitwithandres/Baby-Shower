@@ -146,15 +146,22 @@ CREATE POLICY "Anyone can delete attendance_confirmations"
   ON attendance_confirmations FOR DELETE
   USING (true);
 
--- Fix existing records with wrong image paths
-UPDATE premium_gifts SET imagen = '/images/corralpiso.jpg' WHERE nombre = 'Corral' AND imagen = '/images/corral.jpg';
-UPDATE premium_gifts SET imagen = '/images/bañera.jpg' WHERE nombre = 'Bañera' AND imagen = '/images/banera.jpg';
-
--- Seed sample premium gifts
+-- Seed premium gifts
 INSERT INTO premium_gifts (nombre, descripcion, imagen) VALUES
-  ('Cuna', 'Cuna de madera maciza con colchón ortopédico', '/images/cuna.jpg'),
-  ('Coche', 'Carrito de paseo todo terreno reclinable', '/images/coche.jpg'),
-  ('Corral', 'Corral plegable con colchoneta acolchada', '/images/corralpiso.jpg'),
-  ('Silla para automóvil', 'Silla de seguridad grupo 0+ con base isofix', '/images/silla.jpg'),
-  ('Bañera', 'Bañera ergonómica con soporte antideslizante', '/images/bañera.jpg')
+  ('Bañera con Cambiador', 'Bañera ergonómica con cambiador integrado y soporte antideslizante', '/images/baneracambiador.jpeg'),
+  ('Baby Kit', 'Kit completo de cuidado esencial para recién nacido', '/images/babykit.jpeg'),
+  ('Cuna Corral Génova', 'Cuna corral plegable modelo Génova con colchoneta acolchada', '/images/cunacorralgenova.jpeg'),
+  ('Esterilizador de Teteros', 'Esterilizador eléctrico para biberones y accesorios', '/images/esterilizadorteteros.jpeg'),
+  ('Gimnasio para Bebé', 'Gimnasio de estimulación temprana con colchoneta y juguetes colgantes', '/images/gimnasio.jpeg'),
+  ('Mecedora', 'Mecedora clásica de madera para bebé', '/images/mecedora.jpeg'),
+  ('Mecedora Eléctrica', 'Mecedora automática con vibración y sonidos relajantes', '/images/mecedorelectronico.jpeg'),
+  ('Nutribullet', 'Procesador de alimentos y extractor para papillas y jugos naturales', '/images/nutribullet.jpeg'),
+  ('Olla Multifuncional', 'Olla de cocción lenta y vaporera para preparar comidas saludables', '/images/olla.jpeg'),
+  ('Pañalera', 'Bolso pañalero organizador con múltiples compartimentos', '/images/panalera.jpeg'),
+  ('Silla de Comer', 'Silla de comedor para bebé con bandeja desmontable y ajustable', '/images/sillacomedor.jpeg'),
+  ('Set de Teteros', 'Set de biberones anticólicos con tetinas de silicona', '/images/tetero.jpeg'),
+  ('Silla Mecedora Eléctrica MaxyBaby', 'Silla mecedora eléctrica MaxyBaby con movimientos suaves y melodías', '/images/sillamecedoramaxybaby.jpeg'),
+  ('Calentador de Biberón Digital', 'Calentador de biberón con pantalla digital y control de temperatura', '/images/calentadorbiberon.jpeg'),
+  ('Cepillo Eléctrico para Biberón', 'Cepillo eléctrico rotatorio para limpieza profunda de biberones', '/images/cepillolectrico.jpeg'),
+  ('Nido para Bebé - Arte Bebé', 'Nido acogedor para bebé marca Arte Bebé, ideal para descanso y juego', '/images/nidobebe.jpeg')
 ON CONFLICT DO NOTHING;

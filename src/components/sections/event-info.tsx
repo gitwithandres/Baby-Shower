@@ -2,6 +2,7 @@
 
 import { ScrollAnimation } from '@/components/effects/scroll-animation';
 import { EVENT } from '@/lib/constants';
+import { formatEventDate } from '@/lib/utils';
 
 function InfoItem({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
@@ -43,7 +44,7 @@ export function EventInfoSection() {
               </svg>
             }
             label="Fecha"
-            value={`${EVENT.date}`}
+            value={formatEventDate(EVENT.date)}
           />
 
           <div className="w-full h-px bg-beige-100" />

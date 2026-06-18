@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useCountdown } from '@/hooks/use-countdown';
 import { EVENT } from '@/lib/constants';
+import { formatEventDate } from '@/lib/utils';
 
 export function HeroSection() {
   const [mounted, setMounted] = useState(false);
@@ -84,7 +85,7 @@ export function HeroSection() {
           transition={{ delay: 1.2, duration: 0.8 }}
           className="text-lg text-beige-400 font-medium"
         >
-          {EVENT.date} &middot; {EVENT.time}
+          {formatEventDate(EVENT.date)} &middot; {EVENT.time}
         </motion.p>
       </motion.div>
 

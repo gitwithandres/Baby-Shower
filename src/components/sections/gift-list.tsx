@@ -142,7 +142,7 @@ export function GiftListSection() {
           {isLoading ? (
             <div className="text-center text-beige-300">Cargando...</div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
               {availablePremium.map((gift, index) => (
                 <motion.div
                   key={gift.id}
@@ -152,14 +152,14 @@ export function GiftListSection() {
                   transition={{ delay: index * 0.1 }}
                   className="bg-white/60 backdrop-blur-sm rounded-2xl overflow-hidden border border-beige-100 group"
                 >
-                  <div className="relative h-40 bg-beige-100 overflow-hidden">
+                  <div className="relative aspect-[4/3] bg-beige-100 overflow-hidden">
                     {gift.imagen ? (
                       <Image
                         src={gift.imagen}
                         alt={gift.nombre}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                         loading="lazy"
                       />
                     ) : (
@@ -203,7 +203,7 @@ export function GiftListSection() {
                   transition={{ delay: index * 0.1 }}
                   className="bg-beige-50 rounded-2xl overflow-hidden border border-beige-100 opacity-75"
                 >
-                  <div className="relative h-40 bg-beige-100 overflow-hidden">
+                  <div className="relative aspect-[4/3] bg-beige-100 overflow-hidden">
                     {gift.imagen ? (
                       <>
                         <Image
@@ -211,7 +211,7 @@ export function GiftListSection() {
                           alt={gift.nombre}
                           fill
                           className="object-cover"
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                           loading="lazy"
                         />
                         <div className="absolute inset-0 bg-black/10" />

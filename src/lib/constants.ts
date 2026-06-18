@@ -81,28 +81,83 @@ export const GALLERY_IMAGES = [
 
 export const SAMPLE_PREMIUM_GIFTS = [
   {
-    nombre: 'Cuna',
-    descripcion: 'Cuna de madera maciza con colchón ortopédico',
-    imagen: '/images/cuna.jpg',
+    nombre: 'Bañera con Cambiador',
+    descripcion: 'Bañera ergonómica con cambiador integrado y soporte antideslizante',
+    imagen: '/images/baneracambiador.jpeg',
   },
   {
-    nombre: 'Coche',
-    descripcion: 'Carrito de paseo todo terreno reclinable',
-    imagen: '/images/coche.jpg',
+    nombre: 'Baby Kit',
+    descripcion: 'Kit completo de cuidado esencial para recién nacido',
+    imagen: '/images/babykit.jpeg',
   },
   {
-    nombre: 'Corral',
-    descripcion: 'Corral plegable con colchoneta acolchada',
-    imagen: '/images/corralpiso.jpg',
+    nombre: 'Cuna Corral Génova',
+    descripcion: 'Cuna corral plegable modelo Génova con colchoneta acolchada',
+    imagen: '/images/cunacorralgenova.jpeg',
   },
   {
-    nombre: 'Silla para automóvil',
-    descripcion: 'Silla de seguridad grupo 0+ con base isofix',
-    imagen: '/images/silla.jpg',
+    nombre: 'Esterilizador de Teteros',
+    descripcion: 'Esterilizador eléctrico para biberones y accesorios',
+    imagen: '/images/esterilizadorteteros.jpeg',
   },
   {
-    nombre: 'Bañera',
-    descripcion: 'Bañera ergonómica con soporte antideslizante',
-    imagen: '/images/bañera.jpg',
+    nombre: 'Gimnasio para Bebé',
+    descripcion: 'Gimnasio de estimulación temprana con colchoneta y juguetes colgantes',
+    imagen: '/images/gimnasio.jpeg',
+  },
+  {
+    nombre: 'Mecedora',
+    descripcion: 'Mecedora clásica de madera para bebé',
+    imagen: '/images/mecedora.jpeg',
+  },
+  {
+    nombre: 'Mecedora Eléctrica',
+    descripcion: 'Mecedora automática con vibración y sonidos relajantes',
+    imagen: '/images/mecedorelectronico.jpeg',
+  },
+  {
+    nombre: 'Nutribullet',
+    descripcion: 'Procesador de alimentos y extractor para papillas y jugos naturales',
+    imagen: '/images/nutribullet.jpeg',
+  },
+  {
+    nombre: 'Olla Multifuncional',
+    descripcion: 'Olla de cocción lenta y vaporera para preparar comidas saludables',
+    imagen: '/images/olla.jpeg',
+  },
+  {
+    nombre: 'Pañalera',
+    descripcion: 'Bolso pañalero organizador con múltiples compartimentos',
+    imagen: '/images/panalera.jpeg',
+  },
+  {
+    nombre: 'Silla de Comer',
+    descripcion: 'Silla de comedor para bebé con bandeja desmontable y ajustable',
+    imagen: '/images/sillacomedor.jpeg',
+  },
+  {
+    nombre: 'Set de Teteros',
+    descripcion: 'Set de biberones anticólicos con tetinas de silicona',
+    imagen: '/images/tetero.jpeg',
+  },
+  {
+    nombre: 'Silla Mecedora Eléctrica MaxyBaby',
+    descripcion: 'Silla mecedora eléctrica MaxyBaby con movimientos suaves y melodías',
+    imagen: '/images/sillamecedoramaxybaby.jpeg',
+  },
+  {
+    nombre: 'Calentador de Biberón Digital',
+    descripcion: 'Calentador de biberón con pantalla digital y control de temperatura',
+    imagen: '/images/calentadorbiberon.jpeg',
+  },
+  {
+    nombre: 'Cepillo Eléctrico para Biberón',
+    descripcion: 'Cepillo eléctrico rotatorio para limpieza profunda de biberones',
+    imagen: '/images/cepillolectrico.jpeg',
+  },
+  {
+    nombre: 'Nido para Bebé - Arte Bebé',
+    descripcion: 'Nido acogedor para bebé marca Arte Bebé, ideal para descanso y juego',
+    imagen: '/images/nidobebe.jpeg',
   },
 ] as const;

@@ -4,13 +4,21 @@ export function cn(...inputs: (string | boolean | undefined | null)[]) {
 
 export function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  return date.toLocaleDateString('es-CO', {
+  const formatted = date.toLocaleDateString('es-CO', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
   });
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+}
+
+export function formatEventDate(dateString: string): string {
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.toLocaleDateString('es-CO', { month: 'long' });
+  const year = date.getFullYear();
+  const monthCap = month.charAt(0).toUpperCase() + month.slice(1);
+  return `${day} de ${monthCap} de ${year}`;
 }
 
 export function generateWhatsAppMessage(nombre: string): string {
