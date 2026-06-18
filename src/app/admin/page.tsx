@@ -9,6 +9,7 @@ export default function AdminDashboardPage() {
   const [stats, setStats] = useState({
     premiumGifts: 0,
     reservedGifts: 0,
+    complementarySelections: 0,
     messages: 0,
     approvedMessages: 0,
     attendance: 0,
@@ -24,12 +25,14 @@ export default function AdminDashboardPage() {
     const [
       { count: premiumGifts },
       { count: reservedGifts },
+      { count: complementarySelections },
       { count: messages },
       { count: approvedMessages },
       { count: attendance },
     ] = await Promise.all([
       supabase.from('premium_gifts').select('*', { count: 'exact', head: true }),
       supabase.from('premium_gifts').select('*', { count: 'exact', head: true }).eq('reservado', true),
+      supabase.from('complementary_selections').select('*', { count: 'exact', head: true }),
       supabase.from('guest_messages').select('*', { count: 'exact', head: true }),
       supabase.from('guest_messages').select('*', { count: 'exact', head: true }).eq('aprobado', true),
       supabase.from('attendance_confirmations').select('*', { count: 'exact', head: true }),
@@ -38,6 +41,7 @@ export default function AdminDashboardPage() {
     setStats({
       premiumGifts: premiumGifts ?? 0,
       reservedGifts: reservedGifts ?? 0,
+      complementarySelections: complementarySelections ?? 0,
       messages: messages ?? 0,
       approvedMessages: approvedMessages ?? 0,
       attendance: attendance ?? 0,
@@ -51,6 +55,13 @@ export default function AdminDashboardPage() {
       sub: `${stats.reservedGifts} reservados`,
       href: '/admin/gifts',
       color: 'text-gold-400',
+    },
+    {
+      label: 'Complementarios',
+      value: stats.complementarySelections,
+      sub: 'selecciones recibidas',
+      href: '/admin/complementary',
+      color: 'text-beige-400',
     },
     {
       label: 'Mensajes Recibidos',
@@ -74,7 +85,7 @@ export default function AdminDashboardPage() {
         Dashboard
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
         {cards.map((card) => (
           <button
             key={card.label}

@@ -39,10 +39,10 @@ export default function AdminComplementaryPage() {
     if (data) setSelections(data);
   }
 
-  async function deleteSelection(id: string) {
-    if (!confirm('¿Eliminar esta selección?')) return;
+  async function deleteGuestSelections(guest: string) {
+    if (!confirm(`¿Eliminar todas las selecciones de ${guest}?`)) return;
     const supabase = getSupabaseClient();
-    await supabase.from('complementary_selections').delete().eq('id', id);
+    await supabase.from('complementary_selections').delete().eq('nombre_invitado', guest);
     fetchSelections();
   }
 
@@ -85,7 +85,7 @@ export default function AdminComplementaryPage() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => items.forEach((item) => deleteSelection(item.id))}
+                  onClick={() => deleteGuestSelections(guest)}
                   className="text-red-400 hover:text-red-500"
                 >
                   Eliminar
