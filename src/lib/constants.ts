@@ -166,4 +166,19 @@ export const SAMPLE_PREMIUM_GIFTS = [
     descripcion: 'Nido acogedor para bebé marca Arte Bebé, ideal para descanso y juego',
     imagen: '/images/nidobebe.jpeg',
   },
+  {
+    nombre: 'Coche',
+    descripcion: 'Coche o carriola para bebé, cómodo y seguro para paseos diarios',
+    imagen: '/images/coche.jpeg',
+  },
+  {
+    nombre: 'Extractor de Leche',
+    descripcion: 'Extractor de leche materna eléctrico, práctico y eficiente',
+    imagen: '/images/extractorleche.jpeg',
+  },
+  {
+    nombre: 'Set de Biberones',
+    descripcion: 'Set completo de biberones con tetinas de silicona, ideal para la alimentación del bebé',
+    imagen: '/images/setbiberones.jpeg',
+  },
 ] as const;
