@@ -42,6 +42,9 @@ export default function AdminGiftsPage() {
     setDescripcion(gift.descripcion);
     setImagen(gift.imagen);
     setShowForm(true);
+    setTimeout(() => {
+      document.getElementById('gift-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -69,6 +72,16 @@ export default function AdminGiftsPage() {
     fetchGifts();
   }
 
+  async function clearReservation(id: string) {
+    if (!confirm('¿Liberar la reserva de este regalo?')) return;
+    const supabase = getSupabaseClient();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (supabase.from('premium_gifts') as any)
+      .update({ reservado: false, reservado_por: null, fecha_reserva: null, updated_at: new Date().toISOString() })
+      .eq('id', id);
+    fetchGifts();
+  }
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-8">
@@ -89,6 +102,7 @@ export default function AdminGiftsPage() {
 
       {showForm && (
         <form
+          id="gift-form"
           onSubmit={handleSubmit}
           className="bg-white rounded-2xl p-6 border border-beige-100 mb-8 space-y-4"
         >
@@ -150,6 +164,16 @@ export default function AdminGiftsPage() {
               >
                 Editar
               </Button>
+              {gift.reservado && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => clearReservation(gift.id)}
+                  className="text-sky-400 hover:text-sky-500"
+                >
+                  Liberar
+                </Button>
+              )}
               <Button
                 variant="ghost"
                 size="sm"
