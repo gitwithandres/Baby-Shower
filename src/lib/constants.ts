@@ -77,6 +77,12 @@ export const GALLERY_IMAGES = [
   { id: 2, src: '/images/gallery-2.jpg', alt: 'Andrea y Miguel' },
   { id: 3, src: '/images/gallery-3.jpg', alt: 'Andrea y Miguel' },
   { id: 4, src: '/images/gallery-4.jpg', alt: 'Andrea y Miguel' },
+  { id: 5, src: '/images/gallery-5.jpeg', alt: 'Andrea y Miguel' },
+  { id: 6, src: '/images/gallery-6.jpeg', alt: 'Andrea y Miguel' },
+  { id: 7, src: '/images/gallery-7.jpeg', alt: 'Andrea y Miguel' },
+  { id: 8, src: '/images/gallery-8.jpeg', alt: 'Andrea y Miguel' },
+  { id: 9, src: '/images/gallery-9.jpeg', alt: 'Andrea y Miguel' },
+  { id: 10, src: '/images/gallery-10.jpeg', alt: 'Andrea y Miguel' },
 ] as const;
 
 export const SAMPLE_PREMIUM_GIFTS = [

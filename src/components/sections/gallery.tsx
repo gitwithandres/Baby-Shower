@@ -22,21 +22,21 @@ export function GallerySection() {
           <div className="w-8 h-0.5 bg-gold-300 mx-auto mt-3" />
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
           {GALLERY_IMAGES.map((image) => (
             <motion.button
               key={image.id}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setSelectedImage(image.id)}
-              className="relative aspect-square rounded-2xl overflow-hidden cursor-pointer group"
+              className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group bg-beige-100"
             >
               <Image
                 src={image.src}
                 alt={image.alt}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                sizes="(max-width: 768px) 50vw, 25vw"
+                className="object-contain transition-transform duration-500 group-hover:scale-105 p-1"
+                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -58,7 +58,7 @@ export function GallerySection() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="relative max-w-2xl w-full aspect-square rounded-2xl overflow-hidden"
+              className="relative max-w-3xl w-full aspect-[4/3] rounded-2xl overflow-hidden bg-black/20"
               onClick={(e) => e.stopPropagation()}
             >
               <Image
