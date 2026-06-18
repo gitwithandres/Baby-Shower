@@ -13,12 +13,9 @@ export function formatDate(dateString: string): string {
 }
 
 export function formatEventDate(dateString: string): string {
-  const date = new Date(dateString);
-  const day = date.getDate();
-  const month = date.toLocaleDateString('es-CO', { month: 'long' });
-  const year = date.getFullYear();
-  const monthCap = month.charAt(0).toUpperCase() + month.slice(1);
-  return `${day} de ${monthCap} de ${year}`;
+  const [year, month, day] = dateString.split('-').map(Number);
+  const monthName = new Date(year, month - 1, day).toLocaleDateString('es-CO', { month: 'long' });
+  return `${day} de ${monthName.charAt(0).toUpperCase() + monthName.slice(1)} de ${year}`;
 }
 
 export function generateWhatsAppMessage(nombre: string): string {

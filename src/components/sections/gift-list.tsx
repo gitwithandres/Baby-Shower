@@ -40,14 +40,20 @@ export function GiftListSection() {
   }, []);
 
   async function fetchPremiumGifts() {
-    const supabase = getSupabaseClient();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data } = await (supabase.from('premium_gifts') as any)
-      .select('*')
-      .order('created_at', { ascending: true });
+    try {
+      const supabase = getSupabaseClient();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const { data, error } = await (supabase.from('premium_gifts') as any)
+        .select('*')
+        .order('created_at', { ascending: true });
 
-    if (data) {
-      setPremiumGifts(data as PremiumGift[]);
+      if (error) {
+        console.error('Error fetching premium gifts:', error);
+      } else if (data) {
+        setPremiumGifts(data as PremiumGift[]);
+      }
+    } catch (err) {
+      console.error('Failed to fetch premium gifts:', err);
     }
     setIsLoading(false);
   }
