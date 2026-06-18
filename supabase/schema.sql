@@ -140,6 +140,12 @@ CREATE POLICY "Anyone can delete guest_messages"
   ON guest_messages FOR DELETE
   USING (true);
 
+-- Admin: delete complementary selections
+DROP POLICY IF EXISTS "Anyone can delete complementary_selections" ON complementary_selections;
+CREATE POLICY "Anyone can delete complementary_selections"
+  ON complementary_selections FOR DELETE
+  USING (true);
+
 -- Admin: delete attendance confirmations
 DROP POLICY IF EXISTS "Anyone can delete attendance_confirmations" ON attendance_confirmations;
 CREATE POLICY "Anyone can delete attendance_confirmations"

@@ -41,9 +41,13 @@ export default function AdminComplementaryPage() {
 
   async function deleteGuestSelections(guest: string) {
     if (!confirm(`¿Eliminar todas las selecciones de ${guest}?`)) return;
-    const supabase = getSupabaseClient();
-    await supabase.from('complementary_selections').delete().eq('nombre_invitado', guest);
-    fetchSelections();
+    try {
+      const res = await fetch(`/api/complementary?guest=${encodeURIComponent(guest)}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Error al eliminar');
+      fetchSelections();
+    } catch {
+      alert('Error al eliminar las selecciones');
+    }
   }
 
   const grouped = selections.reduce<Record<string, Selection[]>>((acc, s) => {
