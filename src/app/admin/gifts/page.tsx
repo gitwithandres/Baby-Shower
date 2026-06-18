@@ -156,7 +156,7 @@ export default function AdminGiftsPage() {
                 </p>
               )}
             </div>
-            <div className="flex gap-2 flex-shrink-0">
+            <div className="flex gap-1.5 flex-shrink-0 flex-wrap justify-end">
               <Button
                 variant="ghost"
                 size="sm"
