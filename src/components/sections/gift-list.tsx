@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ScrollAnimation } from '@/components/effects/scroll-animation';
 import { GiftModal } from './gift-modal';
 import { Button } from '@/components/ui/button';
 import { getSupabaseClient } from '@/lib/supabase/client';
@@ -146,7 +145,7 @@ export function GiftListSection() {
 
   return (
     <section id="regalos" className="py-16 md:py-20 px-4">
-      <ScrollAnimation className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <div className="text-center mb-10">
           <p className="text-xs text-beige-400 tracking-[0.2em] uppercase mb-2 font-medium">
             Lista
@@ -184,7 +183,7 @@ export function GiftListSection() {
                   transition={{ delay: index * 0.1 }}
                   className="bg-white/60 backdrop-blur-sm rounded-2xl overflow-hidden border border-beige-100 group"
                 >
-                  <div className="relative aspect-[4/3] bg-beige-100 overflow-hidden">
+                  <div className="relative aspect-square bg-beige-100 overflow-hidden">
                     {gift.imagen ? (
                       <Image
                         src={gift.imagen}
@@ -235,7 +234,7 @@ export function GiftListSection() {
                   transition={{ delay: index * 0.1 }}
                   className="bg-beige-50 rounded-2xl overflow-hidden border border-beige-100 opacity-75"
                 >
-                  <div className="relative aspect-[4/3] bg-beige-100 overflow-hidden">
+                  <div className="relative aspect-square bg-beige-100 overflow-hidden">
                     {gift.imagen ? (
                       <>
                         <Image
@@ -346,7 +345,7 @@ export function GiftListSection() {
             </motion.div>
           )}
         </div>
-      </ScrollAnimation>
+      </div>
 
       <GiftModal
         isOpen={selectedGift !== null}
