@@ -56,6 +56,7 @@ function AdminNav() {
   const links = [
     { href: '/admin', label: 'Dashboard' },
     { href: '/admin/gifts', label: 'Regalos' },
+    { href: '/admin/complementary', label: 'Complementarios' },
     { href: '/admin/messages', label: 'Mensajes' },
     { href: '/admin/attendance', label: 'Asistencia' },
   ];

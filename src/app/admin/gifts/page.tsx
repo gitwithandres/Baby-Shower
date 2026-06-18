@@ -139,13 +139,13 @@ export default function AdminGiftsPage() {
         {gifts.map((gift) => (
           <div
             key={gift.id}
-            className="bg-white rounded-xl p-4 border border-beige-100 flex items-center justify-between gap-4"
+            className="bg-white rounded-xl p-4 border border-beige-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
           >
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                 <h3 className="font-medium text-beige-500">{gift.nombre}</h3>
                 {gift.reservado && (
-                  <span className="text-xs px-2 py-0.5 bg-beige-100 text-beige-400 rounded-full">
+                  <span className="text-xs px-2 py-0.5 bg-beige-100 text-beige-400 rounded-full whitespace-nowrap">
                     Reservado por {gift.reservado_por}
                   </span>
                 )}
@@ -156,7 +156,7 @@ export default function AdminGiftsPage() {
                 </p>
               )}
             </div>
-            <div className="flex gap-1.5 flex-shrink-0 flex-wrap justify-end">
+            <div className="flex gap-1.5 flex-shrink-0 flex-wrap">
               <Button
                 variant="ghost"
                 size="sm"
