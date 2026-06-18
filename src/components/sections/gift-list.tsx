@@ -190,14 +190,23 @@ export function GiftListSection() {
                 >
                   <div className="relative aspect-square bg-beige-100 overflow-hidden">
                     {gift.imagen ? (
-                      <Image
-                        src={gift.imagen}
-                        alt={gift.nombre}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                        loading="lazy"
-                      />
+                      <>
+                        <Image
+                          src={gift.imagen}
+                          alt=""
+                          fill
+                          className="object-cover blur-xl opacity-40 scale-110"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                        />
+                        <Image
+                          src={gift.imagen}
+                          alt={gift.nombre}
+                          fill
+                          className="object-contain transition-transform duration-500 group-hover:scale-110 relative z-10"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                          loading="lazy"
+                        />
+                      </>
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center">
                         <svg className="w-12 h-12 text-beige-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -244,13 +253,20 @@ export function GiftListSection() {
                       <>
                         <Image
                           src={gift.imagen}
+                          alt=""
+                          fill
+                          className="object-cover blur-xl opacity-40 scale-110"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                        />
+                        <Image
+                          src={gift.imagen}
                           alt={gift.nombre}
                           fill
-                          className="object-cover"
+                          className="object-contain relative z-10"
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                           loading="lazy"
                         />
-                        <div className="absolute inset-0 bg-black/10" />
+                        <div className="absolute inset-0 bg-black/10 z-20" />
                       </>
                     ) : null}
                     <div className="absolute inset-0 flex items-center justify-center">
