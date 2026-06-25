@@ -169,5 +169,6 @@ INSERT INTO premium_gifts (nombre, descripcion, imagen) VALUES
   ('Silla Mecedora Eléctrica MaxyBaby', 'Silla mecedora eléctrica MaxyBaby con movimientos suaves y melodías', '/images/sillamecedoramaxybaby.jpeg'),
   ('Calentador de Biberón Digital', 'Calentador de biberón con pantalla digital y control de temperatura', '/images/calentadorbiberon.jpeg'),
   ('Cepillo Eléctrico para Biberón', 'Cepillo eléctrico rotatorio para limpieza profunda de biberones', '/images/cepillolectrico.jpeg'),
-  ('Nido para Bebé - Arte Bebé', 'Nido acogedor para bebé marca Arte Bebé, ideal para descanso y juego', '/images/nidobebe.jpeg')
+  ('Nido para Bebé - Arte Bebé', 'Nido acogedor para bebé marca Arte Bebé, ideal para descanso y juego', '/images/nidobebe.jpeg'),
+  ('Manilla', 'Manilla o pulsera tejida para bebé, suave y decorativa', '/images/manilla.jpeg')
 ON CONFLICT DO NOTHING;

@@ -181,4 +181,9 @@ export const SAMPLE_PREMIUM_GIFTS = [
     descripcion: 'Set completo de biberones con tetinas de silicona, ideal para la alimentación del bebé',
     imagen: '/images/setbiberones.jpeg',
   },
+  {
+    nombre: 'Manilla',
+    descripcion: 'Manilla o pulsera tejida para bebé, suave y decorativa',
+    imagen: '/images/manilla.jpeg',
+  },
 ] as const;
